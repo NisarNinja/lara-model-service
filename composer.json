@@ -1,0 +1,50 @@
+{
+    "name": "easoblue/lara-model-service",
+    "description": "Laravel model service.",
+    "keywords": [
+        "easoblue",
+        "lara-model-service"
+    ],
+    "homepage": "https://github.com/easoblue/lara-model-service",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Nisar Ahmed",
+            "email": "nisar@easoblue.com",
+            "role": "Full stack web developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Easoblue\\LaraModelService\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Easoblue\\LaraModelService\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Easoblue\\LaraModelService\\LaraModelServiceProvider"
+            ]
+        }
+    }
+}
