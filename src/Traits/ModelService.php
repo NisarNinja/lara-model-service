@@ -1,6 +1,6 @@
 <?php
 
-namespace Easoblue\LaraModelService\Trait;
+namespace Easoblue\LaraModelService\Traits;
 
 use App\Exceptions\ValidationException;
 
