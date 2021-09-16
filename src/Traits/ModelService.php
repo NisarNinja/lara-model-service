@@ -10,7 +10,7 @@ trait ModelService{
     protected $options;
     protected $data;
 
-    public function __construct($model = null,$config)
+    public function __construct($model = null,$config = [])
     {
 
         $config['msg_404'] = $config['msg_404'] ?? 'Model not found.';
@@ -42,7 +42,7 @@ trait ModelService{
 
         if($this->options['id'] || $this->options['filter_id']){
 
-           $this->model = $this->model->where(isset($this->IdField) ? $this->IdField : 'id',$this->options['filter_id'] ?? $this->options['id']);
+           $this->model = $this->model->where((isset($this->IdField) ? $this->IdField : 'id'),$this->options['filter_id'] ?? $this->options['id']);
            // $this->options['first'] = true;
         }
 
