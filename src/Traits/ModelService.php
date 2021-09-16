@@ -10,15 +10,18 @@ trait ModelService{
     protected $options;
     protected $data;
 
-    public function __construct($model = null)
+    public function __construct($model = null,$config)
     {
+
+        $config['msg_404'] = $config['msg_404'] ?? 'Model not found.'
+
         if($model instanceof $this->modelName ){
             $this->model = $model;
         }elseif(is_numeric($model) || is_string($model)){
             $this->model = new $this->modelName;
             $this->model = $this::prepare(['filter_id' => $model])->first();
             if(!$this->model){
-                throw new ValidationException((object)[],400,'Model not found.');
+                throw new ValidationException((object)[],400,$config['msg_404']);
             }
         }else{
             $this->model = new $this->modelName;
@@ -39,7 +42,7 @@ trait ModelService{
 
         if($this->options['id'] || $this->options['filter_id']){
 
-           $this->model = $this->model->where('id',$this->options['filter_id'] ?? $this->options['id']);
+           $this->model = $this->model->where(isset($this->IdField) ? $this->IdField : 'id',$this->options['filter_id'] ?? $this->options['id']);
            // $this->options['first'] = true;
         }
 
