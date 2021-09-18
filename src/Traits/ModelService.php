@@ -29,6 +29,7 @@ trait ModelService{
             $this->model = new $this->modelName;
         }
 
+        $this->afterConstruct();
     }
 
     private function defaultOptions($data = array()){
@@ -62,6 +63,8 @@ trait ModelService{
     }
 
     public function userOptions(){}
+    
+    public function afterConstruct(){}
 
     public function prepare($data = array())
     {   
