@@ -14,7 +14,7 @@ trait ModelService{
     public function __construct($model = null,$config = [])
     {
 
-        $this->initConfig = $initConfig;
+        $this->initConfig = $config;
         $this->initConfig['msg_404'] = $config['msg_404'] ?? 'Model not found.';
 
         if($model instanceof $this->modelName ){
