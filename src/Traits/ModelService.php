@@ -9,11 +9,13 @@ trait ModelService{
     protected $model;
     protected $options;
     protected $data;
+    protected $initConfig;
 
     public function __construct($model = null,$config = [])
     {
 
-        $config['msg_404'] = $config['msg_404'] ?? 'Model not found.';
+        $this->initConfig = $initConfig;
+        $this->initConfig['msg_404'] = $config['msg_404'] ?? 'Model not found.';
 
         if($model instanceof $this->modelName ){
             $this->model = $model;
@@ -21,11 +23,12 @@ trait ModelService{
             $this->model = new $this->modelName;
             $this->model = $this::prepare(['filter_id' => $model])->first();
             if(!$this->model){
-                throw new ValidationException((object)[],400,$config['msg_404']);
+                throw new ValidationException((object)[],400,$this->initConfig['msg_404']);
             }
         }else{
             $this->model = new $this->modelName;
         }
+
     }
 
     private function defaultOptions($data = array()){
