@@ -130,7 +130,7 @@ trait ModelService{
     public function store($data = array()){
         $this->data = $data;
         $this->beforeModelSave('store');
-        $this->createOrUpdate();
+        $this->createOrUpdate('store');
         $this->afterModelSave('store');
         return $this->model;
     }
@@ -139,7 +139,7 @@ trait ModelService{
 
         $this->data = $data;
         $this->beforeModelSave('update');
-        $this->createOrUpdate();
+        $this->createOrUpdate('update');
         $this->afterModelSave('update');
         return $this->model;
     }
