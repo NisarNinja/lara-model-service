@@ -31,6 +31,10 @@ trait ModelService{
 
         $this->afterConstruct();
     }
+    
+    public static function instance(){
+        return (new self);
+    }
 
     private function defaultOptions($data = array()){
         
