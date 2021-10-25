@@ -35,6 +35,11 @@ trait ModelService{
     public static function instance(){
         return (new self);
     }
+    
+    public static function setModel($model){
+        $this->model = $model;
+        return this;
+    }
 
     private function defaultOptions($data = array()){
         
