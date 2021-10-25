@@ -36,7 +36,7 @@ trait ModelService{
         return (new self);
     }
     
-    public static function setModel($model){
+    public function setModel($model){
         $this->model = $model;
         return this;
     }
