@@ -38,7 +38,7 @@ trait ModelService{
     
     public function setModel($model){
         $this->model = $model;
-        return this;
+        return $this;
     }
 
     private function defaultOptions($data = array()){
