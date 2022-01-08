@@ -121,6 +121,11 @@ trait ModelService{
     public function first($id = null){
         if($id){
             $this->prepare(['filter_id' => $id]);
+            $first = $this->model->first();
+            if(!$first){
+                return null;
+            }
+            return $first;
         }
         return $this->model->first();
     }
