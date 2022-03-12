@@ -118,6 +118,11 @@ trait ModelService{
         return $this->model->get();
     }
 
+    public function setData($data){
+        $this->data = $data;
+        return $this;
+    }
+
     public function first($id = null){
         if($id){
             $this->prepare(['filter_id' => $id]);
