@@ -13,7 +13,6 @@ trait ModelService{
 
     public function __construct($model = null,$config = [])
     {
-
         $this->initConfig = $config;
         $this->initConfig['msg_404'] = $config['msg_404'] ?? 'Model not found.';
 
@@ -28,7 +27,6 @@ trait ModelService{
         }else{
             $this->model = new $this->modelName;
         }
-
         $this->afterConstruct();
     }
     
@@ -46,8 +44,10 @@ trait ModelService{
         $this->options['first']          = $data['first'] ?? false;
         $this->options['paginate']       = $data['paginate'] ?? true;
         $this->options['limit']          = $data['limit'] ?? "";
-        $this->options['sort_by']        = $data['sort_by'] ?? "";
-        $this->options['sort_value']     = $data['sort_value'] ?? "";
+        $this->options['sort_by']        = $data['sort_by'] ?? null;
+        $this->options['filter_sort_by'] = $data['filter_sort_by'] ?? null;
+        $this->options['sort_value']     = $data['sort_value'] ?? null;
+        $this->options['filter_sort_value']     = $data['filter_sort_value'] ?? null;
         $this->options['id']             = $data['id'] ?? false;
 
         $this->options['filter_id']      = $data['filter_id'] ?? null;
@@ -64,6 +64,10 @@ trait ModelService{
             $this->options['sort_by'],
             $this->options['sort_value']
            );
+        }
+
+        if(($this->options['sort_by'] || $this->options['filter_sort_by']) && ($this->options['sort_value'] || $this->options['filter_sort_value'])){
+            $this->sort($data['sort_by'] ?? $data['filter_sort_by'],$data['sort_value'] ?? $data['filter_sort_value']); 
         }
 
         if($this->options['limit']){
@@ -136,7 +140,6 @@ trait ModelService{
     }
 
     public function paginate($paginate = 20){
-
         if($this->options['first']??false){
             return $this->first();
         }
@@ -144,6 +147,11 @@ trait ModelService{
             return $this->model->paginate($paginate);
         }
         return $this->get();
+    }
+
+    public function sort($sort,$sortBy){
+        $this->model = $this->model->orderBy($sort,$sortBy);
+        return $this;
     }
 
     public function store($data = array()){
@@ -155,7 +163,6 @@ trait ModelService{
     }
 
     public function update($data = array()){
-
         $this->data = $data;
         $this->beforeModelSave('update');
         $this->createOrUpdate('update');
